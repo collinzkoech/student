@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -16,7 +17,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -32,12 +32,16 @@ import com.example.studentapp.R
 import com.example.studentapp.data.AuthViewModel
 import com.example.studentapp.navigation.SIGNUP_URL
 import com.example.studentapp.ui.theme.StudentAppTheme
+
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginScreen(navController:NavHostController){
-
     Column(
         modifier = Modifier
-            .paint(painterResource(id = R.drawable.students), contentScale = ContentScale.FillBounds)
+            .paint(
+                painterResource(id = R.drawable.image),
+                contentScale = ContentScale.FillBounds
+            )
             .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -55,8 +59,7 @@ fun LoginScreen(navController:NavHostController){
         OutlinedTextField(
             value = email,
             onValueChange = {email = it},
-            label = { Text(text = "Enter email",
-                color = Color.White)},
+            label = { Text(text = "Enter email")},
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Email
             )
@@ -66,8 +69,7 @@ fun LoginScreen(navController:NavHostController){
         OutlinedTextField(
             value = password,
             onValueChange = {password = it},
-            label = { Text(text = "Enter password",
-                color = Color.White)},
+            label = { Text(text = "Enter password")},
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Password
             )
@@ -90,7 +92,6 @@ fun LoginScreen(navController:NavHostController){
             Text(text = "Register instead")
         }
     }
-
 }
 
 @Composable
@@ -98,6 +99,5 @@ fun LoginScreen(navController:NavHostController){
 fun LoginScreenPreview(){
     StudentAppTheme{
         LoginScreen(navController = rememberNavController())
-
     }
 }

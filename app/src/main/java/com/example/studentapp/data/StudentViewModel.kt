@@ -28,20 +28,20 @@ class StudentViewModel(var navController:NavHostController, var context: Context
         progress.setMessage("Please wait...")
     }
 
-    fun uploadStudent(name:String, course:String, fee:String, filePath:Uri){
+    fun uploadStudent(name:String, course:String, duration:String, filePath:Uri){
         val studentId = System.currentTimeMillis().toString()
         val storageRef = FirebaseStorage.getInstance().getReference()
-            .child("Students/$studentId")
+            .child("Products/$studentId")
         progress.show()
         storageRef.putFile(filePath).addOnCompleteListener{
             progress.dismiss()
             if (it.isSuccessful){
                 // Save data to db
                 storageRef.downloadUrl.addOnSuccessListener {
-                    val imageUrl = it.toString()
-                    val student = Student(name, course, fee ,imageUrl,studentId)
-                    val databaseRef = FirebaseDatabase.getInstance().getReference()
-                        .child("Students/$studentId")
+                    var imageUrl = it.toString()
+                    var student = Student(name,course,duration,imageUrl,studentId)
+                    var databaseRef = FirebaseDatabase.getInstance().getReference()
+                        .child("Products/$studentId")
                     databaseRef.setValue(student).addOnCompleteListener {
                         if (it.isSuccessful){
                             Toast.makeText(this.context, "Success", Toast.LENGTH_SHORT).show()
@@ -60,13 +60,13 @@ class StudentViewModel(var navController:NavHostController, var context: Context
         student:MutableState<Student>,
         students:SnapshotStateList<Student>):SnapshotStateList<Student>{
         progress.show()
-        val ref = FirebaseDatabase.getInstance().getReference()
-            .child("Students")
+        var ref = FirebaseDatabase.getInstance().getReference()
+            .child("Products")
         ref.addValueEventListener(object: ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 students.clear()
                 for (snap in snapshot.children){
-                    val retrievedStudent = snap.getValue(Student::class.java)
+                    var retrievedStudent = snap.getValue(Student::class.java)
                     student.value = retrievedStudent!!
                     students.add(retrievedStudent)
                 }
@@ -81,8 +81,8 @@ class StudentViewModel(var navController:NavHostController, var context: Context
     }
 
     fun deleteStudent(studentId:String){
-        val ref = FirebaseDatabase.getInstance().getReference()
-            .child("Students/$studentId")
+        var ref = FirebaseDatabase.getInstance().getReference()
+            .child("Products/$studentId")
         ref.removeValue()
         Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
     }

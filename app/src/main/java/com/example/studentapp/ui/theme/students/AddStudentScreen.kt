@@ -20,10 +20,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -51,63 +49,58 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.example.studentapp.ui.theme.StudentAppTheme
 import com.example.studentapp.R
 import com.example.studentapp.data.StudentViewModel
-import com.example.studentapp.ui.theme.StudentAppTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddStudentsScreen(navController:NavHostController){
     Column(
         modifier = Modifier
-            .paint(painterResource(id = R.drawable.students), contentScale = ContentScale.FillBounds)
-            .fillMaxSize()
-            .verticalScroll(rememberScrollState()),
+            .paint(
+                painterResource(id = R.drawable.image),
+                contentScale = ContentScale.FillBounds
+            )
+            .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "Add student",
-            color = Color.White,
+            text = "Add Students",
             fontSize = 40.sp,
             fontWeight = FontWeight.Bold,
-            fontFamily = FontFamily.Serif
+            fontFamily = FontFamily.Cursive
         )
 
         var studentName by remember { mutableStateOf("") }
         var studentCourse by remember { mutableStateOf("") }
-        var studentfee by remember { mutableStateOf("") }
+        var studentDuration by remember { mutableStateOf("") }
         val context = LocalContext.current
 
         Spacer(modifier = Modifier.height(30.dp))
 
         OutlinedTextField(
-            shape = RoundedCornerShape(25.dp),
             value = studentName,
             onValueChange = { studentName = it },
-            label = { Text(text = "Student name *",
-                color = Color.White) },
+            label = { Text(text = "Student Name *") },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
         )
 
         Spacer(modifier = Modifier.height(20.dp))
 
         OutlinedTextField(
-            shape = RoundedCornerShape(25.dp),
             value = studentCourse,
             onValueChange = { studentCourse = it },
-            label = { Text(text = "Student Course *",
-                color = Color.White) },
+            label = { Text(text = "Student Course *") },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
         )
 
         Spacer(modifier = Modifier.height(20.dp))
 
         OutlinedTextField(
-            shape = RoundedCornerShape(25.dp),
-            value = studentfee,
-            onValueChange = { studentfee = it },
-            label = { Text(text = "Student fee *",
-                color = Color.White) },
+            value = studentDuration,
+            onValueChange = { studentDuration = it },
+            label = { Text(text = "Course Duration *") },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
         )
 
@@ -117,8 +110,8 @@ fun AddStudentsScreen(navController:NavHostController){
 
         //---------------------IMAGE PICKER START-----------------------------------//
 
-        val modifier = Modifier
-        ImagePicker(modifier,context, navController,studentName.trim(), studentCourse.trim(), studentfee.trim())
+        var modifier = Modifier
+        ImagePicker(modifier,context, navController, studentName.trim(), studentCourse.trim(), studentDuration.trim())
 
         //---------------------IMAGE PICKER END-----------------------------------//
 
@@ -127,10 +120,8 @@ fun AddStudentsScreen(navController:NavHostController){
     }
 }
 
-
-
 @Composable
-fun ImagePicker(modifier: Modifier = Modifier, context: Context,navController: NavHostController, name:String, course:String, fee:String) {
+fun ImagePicker(modifier: Modifier = Modifier, context: Context,navController: NavHostController, name:String, course:String, duration:String) {
     var hasImage by remember { mutableStateOf(false) }
     var imageUri by remember { mutableStateOf<Uri?>(null) }
 
@@ -197,7 +188,7 @@ fun ImagePicker(modifier: Modifier = Modifier, context: Context,navController: N
             onClick = {
                 //-----------WRITE THE UPLOAD LOGIC HERE---------------//
                 val studentRepository = StudentViewModel(navController, context)
-                studentRepository.uploadStudent(name, course, fee, imageUri!!)
+                studentRepository.uploadStudent(name, course, duration, imageUri!!)
 
             },
             modifier = Modifier
@@ -213,7 +204,6 @@ fun ImagePicker(modifier: Modifier = Modifier, context: Context,navController: N
         }
     }
 
-
 }
 
 @Composable
@@ -223,4 +213,3 @@ fun AddStudentsScreenPreview(){
         AddStudentsScreen(navController = rememberNavController())
     }
 }
-

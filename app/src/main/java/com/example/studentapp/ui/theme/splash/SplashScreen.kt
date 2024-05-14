@@ -31,8 +31,8 @@ import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
-import com.example.studentapp.R
 import com.example.studentapp.navigation.HOME_URL
+import com.example.studentapp.R
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -40,7 +40,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun SplashScreen(navController: NavHostController){
     Column (modifier = Modifier.fillMaxSize()
-        .paint(painterResource(id = R.drawable.students), contentScale = ContentScale.FillBounds),
+        .paint(painterResource(id = R.drawable.image), contentScale = ContentScale.FillBounds),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center){
         val coroutine = rememberCoroutineScope()
@@ -58,7 +58,7 @@ fun SplashScreen(navController: NavHostController){
 
         Text(text = "We Value your Present's Our Pleasure to teach you Welcome!",
             fontWeight = FontWeight.ExtraBold,
-            color = Color.White,
+            color = Color.Black,
             textAlign = TextAlign.Center,
             fontFamily = FontFamily.Serif,
             modifier = Modifier

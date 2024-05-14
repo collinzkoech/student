@@ -18,7 +18,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -30,17 +29,20 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.example.studentapp.R
-import com.example.studentapp.ui.theme.StudentAppTheme
-import com.example.studentapp.data.AuthViewModel
 import com.example.studentapp.navigation.LOGIN_URL
+import com.example.studentapp.ui.theme.StudentAppTheme
+import com.example.studentapp.R
+import com.example.studentapp.data.AuthViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SignupScreen(navController:NavHostController){
     Column(
         modifier = Modifier
-            .paint(painterResource(id = R.drawable.students), contentScale = ContentScale.FillBounds)
+            .paint(
+                painterResource(id = R.drawable.image),
+                contentScale = ContentScale.FillBounds
+            )
             .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -59,9 +61,7 @@ fun SignupScreen(navController:NavHostController){
         OutlinedTextField(
             value = name,
             onValueChange = {name = it},
-            label = { Text(text = "Enter Your Name",
-                color = Color.White
-            )},
+            label = { Text(text = "Enter name")},
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Text
             )
@@ -72,9 +72,7 @@ fun SignupScreen(navController:NavHostController){
         OutlinedTextField(
             value = email,
             onValueChange = {email = it},
-            label = { Text(text = "Enter Your Email",
-                color = Color.White
-            )},
+            label = { Text(text = "Enter email")},
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Email
             )
@@ -84,8 +82,7 @@ fun SignupScreen(navController:NavHostController){
         OutlinedTextField(
             value = password,
             onValueChange = {password = it},
-            label = { Text(text = "Enter Your Password",
-                color = Color.White)},
+            label = { Text(text = "Enter password")},
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Password
             )
@@ -115,7 +112,7 @@ fun SignupScreen(navController:NavHostController){
 @Composable
 @Preview(showBackground = true)
 fun SignupScreenPreview(){
-    StudentAppTheme {
+    StudentAppTheme{
         SignupScreen(navController = rememberNavController())
     }
 }

@@ -1,6 +1,4 @@
 package com.example.studentapp.ui.theme.students
-
-
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -38,7 +36,10 @@ import com.example.studentapp.ui.theme.StudentAppTheme
 @Composable
 fun ViewStudentsScreen(navController:NavHostController) {
     Column(modifier = Modifier
-        .paint(painterResource(id = R.drawable.students), contentScale = ContentScale.FillBounds)
+        .paint(
+            painterResource(id = R.drawable.image),
+            contentScale = ContentScale.FillBounds
+        )
         .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally) {
 
@@ -46,7 +47,7 @@ fun ViewStudentsScreen(navController:NavHostController) {
         var studentRepository = StudentViewModel(navController, context)
 
 
-        val emptyStudentState = remember { mutableStateOf(Student("","","","","",)) }
+        val emptyStudentState = remember { mutableStateOf(Student("","","","","")) }
         var emptyStudentsListState = remember { mutableStateListOf<Student>() }
 
         var students = studentRepository.allStudents(emptyStudentState, emptyStudentsListState)
@@ -59,17 +60,17 @@ fun ViewStudentsScreen(navController:NavHostController) {
         ) {
             Text(text = "All Students",
                 fontSize = 30.sp,
-                fontFamily = FontFamily.Cursive,
+                fontFamily = FontFamily.Serif,
                 color = Color.Red)
 
             Spacer(modifier = Modifier.height(20.dp))
 
             LazyColumn(){
                 items(students){
-                    StudentDetails(
+                    StudentItem(
                         name = it.name,
                         course = it.course,
-                        fee = it.fee,
+                        duration = it.duration,
                         id = it.id,
                         navController = navController,
                         studentRepository = studentRepository,
@@ -83,14 +84,14 @@ fun ViewStudentsScreen(navController:NavHostController) {
 
 
 @Composable
-fun StudentDetails(name:String, course:String, fee:String, id:String,
+fun StudentItem(name:String, course:String, duration:String, id:String,
                 navController:NavHostController,
                 studentRepository:StudentViewModel, studentImage:String) {
 
     Column(modifier = Modifier.fillMaxWidth()) {
         Text(text = name)
         Text(text = course)
-        Text(text = fee)
+        Text(text = duration)
         Image(
             painter = rememberAsyncImagePainter(studentImage),
             contentDescription = null,
@@ -111,7 +112,7 @@ fun StudentDetails(name:String, course:String, fee:String, id:String,
 
 @Composable
 @Preview(showBackground = true)
-fun ViewStudentsScreenPreview(){
+fun ViewStudentScreenPreview(){
     StudentAppTheme {
         ViewStudentsScreen(navController = rememberNavController())
     }

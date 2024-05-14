@@ -1,20 +1,18 @@
 package com.example.studentapp.models
-
-
 class Student {
     var name:String = ""
     var course:String = ""
-    var fee:String = ""
+    var duration:String = ""
     var imageUrl:String = ""
     var id:String = ""
 
-    constructor(name: String, course: String, fee: String, imageUrl: String, id: String) {
+    constructor(name: String, quantity: String, price: String, imageUrl: String, id: String) {
         this.name = name
-        this.course = course
-        this.fee = fee
+        this.course = quantity
+        this.duration = price
         this.imageUrl = imageUrl
         this.id = id
     }
-constructor()
 
+    constructor()
 }

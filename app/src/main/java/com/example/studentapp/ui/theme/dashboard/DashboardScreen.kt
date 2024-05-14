@@ -2,6 +2,7 @@ package com.example.studentapp.ui.theme.dashboard
 
 
 
+
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -22,15 +23,18 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.studentapp.R
-import com.example.studentapp.ui.theme.StudentAppTheme
 import com.example.studentapp.navigation.ADD_STUDENTS_URL
 import com.example.studentapp.navigation.VIEW_STUDENTS_URL
+import com.example.studentapp.ui.theme.StudentAppTheme
 
 @Composable
 fun DashboardScreen(navController:NavHostController){
     Column(
         modifier = Modifier
-            .paint(painterResource(id = R.drawable.students), contentScale = ContentScale.FillBounds)
+            .paint(
+                painterResource(id = R.drawable.image),
+                contentScale = ContentScale.FillBounds
+            )
             .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {

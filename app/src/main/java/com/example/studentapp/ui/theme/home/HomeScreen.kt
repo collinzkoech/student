@@ -2,11 +2,7 @@ package com.example.studentapp.ui.theme.home
 
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Face
@@ -33,26 +29,20 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.example.studentapp.R
 import com.example.studentapp.ui.theme.StudentAppTheme
-
+import com.example.studentapp.R
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(navController:NavHostController){
-    Column(modifier = Modifier
-            . fillMaxSize(),
+    Column(
+        modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
@@ -108,19 +98,15 @@ fun HomeScreen(navController:NavHostController){
             content = @Composable{
                 Column(
                     modifier = Modifier
-                        .paint(painterResource(id = R.drawable.students), contentScale = ContentScale.FillBounds)
-                    .fillMaxSize(),
+                        .paint(
+                            painterResource(id = R.drawable.image),
+                            contentScale = ContentScale.FillBounds
+                        )
+                        .fillMaxSize(),
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ){
-                    Text(text = "Homepage",
-                        color = Color.White,
-                        fontWeight = FontWeight.ExtraBold,
-                        textAlign = TextAlign.Center,
-                        fontFamily = FontFamily.Serif,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(20.dp))
+                    Text(text = "Homepage")
 
                 }
 
@@ -182,7 +168,7 @@ data class BottomNavItem(
 @Composable
 @Preview(showBackground = true)
 fun HomeScreenPreview(){
-    StudentAppTheme{
+    StudentAppTheme {
         HomeScreen(navController = rememberNavController())
     }
 }
